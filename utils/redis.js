@@ -3,22 +3,19 @@ const redis = require('redis');
 class RedisClient {
   constructor() {
     this.client = redis.createClient();
-    this.connected = false;
+    this.connected = true;
 
-    this.ready = new Promise((resolve, reject) => {
-      this.client.on('connect', () => {
-        this.connected = true;
-        resolve();
-      });
+    this.client.on('connect', () => {
+      this.connected = true;
     });
 
     this.client.on('error', (error) => {
       console.error('Redis client error:', error);
+      this.connected = false;
     });
   }
 
-  async isAlive() {
-    await this.ready;
+  isAlive() {
     return this.connected;
   }
 
