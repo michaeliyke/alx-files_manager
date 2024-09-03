@@ -27,11 +27,12 @@ const postNew = async (req, res) => {
   const newUser = {
     email,
     password: hashedPassword,
-    id: uuid.v4(),
+    // id: uuid.v4(),
   };
 
   users.insertOne(newUser);
-  return res.status(201).json({ email: newUser.email, id: newUser.id });
+  console.log(newUser);
+  return res.status(201).json({ email: newUser.email, id: newUser._id });
 }
 
-module.exports = { postNew };
+export default { postNew };
