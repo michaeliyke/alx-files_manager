@@ -1,5 +1,6 @@
-const express = require('express');
 import routes from './routes/index';
+
+const express = require('express');
 
 const app = express();
 // Use json middleware
