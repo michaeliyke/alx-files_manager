@@ -1,8 +1,5 @@
-const express = require('express');
 const crypto = require('crypto');
 import dbClient from '../utils/db';
-// import UUID from 'uuid';
-const uuid = require('uuid');
 
 
 const postNew = async (req, res) => {
@@ -27,7 +24,6 @@ const postNew = async (req, res) => {
   const newUser = {
     email,
     password: hashedPassword,
-    // id: uuid.v4(),
   };
 
   users.insertOne(newUser);

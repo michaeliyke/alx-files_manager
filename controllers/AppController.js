@@ -19,7 +19,7 @@ const getStats = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   getStatus,
   getStats,
 };

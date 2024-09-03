@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./routes/index');
+import routes from './routes/index';
 
 const app = express();
 // Use json middleware
