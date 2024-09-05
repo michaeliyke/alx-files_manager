@@ -1,6 +1,17 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
+
+const crypto = require('crypto');
+
+function extractCredentials(authorization) {
+  if (!authorization) return {};
+  const base64Credentials = authorization.split(' ')[1];
+  let credentials = Buffer.from(base64Credentials, 'base64');
+  credentials = credentials.toString('ascii');
+  const [email, password] = credentials.split(':');
+  return { email, password };
+}
 
 // GET /connect endpoint
 const getConnect = async (req, res) => {
@@ -26,15 +37,6 @@ const getConnect = async (req, res) => {
 
   return res.status(200).json({ token });
 };
-
-function extractCredentials(authorization) {
-  if (!authorization) return {};
-  const base64Credentials = authorization.split(' ')[1];
-  let credentials = Buffer.from(base64Credentials, 'base64');
-  credentials = credentials.toString('ascii');
-  const [email, password] = credentials.split(':');
-  return { email, password };
-}
 
 // GET /disconnect endpoint
 const getDisconnect = async (req, res) => {
